@@ -1,0 +1,111 @@
+syntax = "proto3";
+package user;
+
+service UserService {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse){}
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse){}
+  rpc ActivateUser (ActivateUserRequest) returns (ActivateUserResponse){}
+  rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse){}
+  rpc ListUser (ListUserRequest) returns (ListUserResponse){}
+  rpc LoginUser (LoginUserRequest) returns (LoginUserResponse){}
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse){}
+}
+
+message User {
+  string id = 1;
+  string email = 2;
+  string password = 3;
+  string token = 4;
+  int32 user_type = 5;
+  repeated string skill = 6;
+  string image = 7;
+  string phone = 8;
+  string location = 9;
+}
+
+message UserList {
+  string id = 1;
+  string email = 3;
+  string password = 4;
+  string token = 5;
+  int32 user_type = 6;
+  repeated string skill = 7;
+  string image = 8;
+  string phone = 9;
+  string location = 10;
+  string created_at = 11;
+}
+
+message Pagination {
+	int32 page = 1;
+	int32 page_size = 2;
+	int32 total_page = 3;
+	int32 total_records = 4;
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message CreateUserResponse {
+  string message = 1;
+  string id = 2;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+}
+
+message UpdateUserResponse {
+  string message = 1;
+  User user = 2;
+}
+
+message ActivateUserRequest {
+  string email = 1;
+}
+
+message ActivateUserResponse {
+  string message = 1;
+}
+
+message ResetPasswordRequest { 
+  string email = 1;
+}
+
+message ResetPasswordResponse { 
+  string password = 1;
+}
+
+message ListUserRequest {
+  int32 limit = 1;
+  int32 page = 2;
+  string sort_type = 3;
+  string sort_by = 4;
+  string search = 5;
+}
+
+message ListUserResponse {
+  string message = 1;
+  repeated UserList user = 2;
+  Pagination pagination = 3;
+}
+
+message LoginUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginUserResponse {
+  string token = 1;
+  string message = 2;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message DeleteUserResponse {
+  string message = 1;
+}
